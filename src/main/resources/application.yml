@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: grpc-login
+
+jwt:
+  secret: "aG9uZ2dpbGRvbmdkaWdpdGFsaW5ub3ZhdGlvbnNlY3JldGtleWhvbmdnaWxkb25nZGlnaXRhbGlubm92YXRpb25zZWNyZXRrZXk="
+  # Access Token
+  access-token-expiration-ms: 1800000
+  # Refresh Token
+  refresh-token-expiration-ms: 604800000
