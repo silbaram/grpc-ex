@@ -47,7 +47,7 @@ dependencies {
 
     // Protobuf & gRPC
     implementation("com.google.protobuf:protobuf-java:${property("protobufVersion")}")
-    implementation("com.google.protobuf:protobuf-kotlin:${property("protobufVersion")}")
+    implementation("com.google.protobuf:protobuf-kotlin:${property("protobufKotlinVersion")}")
     implementation("io.grpc:grpc-netty-shaded:${property("grpcVersion")}")
     implementation("io.grpc:grpc-protobuf:${property("grpcVersion")}")
     implementation("io.grpc:grpc-stub:${property("grpcVersion")}")
