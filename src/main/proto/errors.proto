@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package common.errors.code;
+
+option java_multiple_files = true;
+
+// 우리 서비스에서 사용할 공통 에러 코드 enum
+enum ErrorCode {
+  // 0 값은 항상 기본값/미지정으로 남겨두는 것이 좋습니다.
+  ERROR_CODE_UNSPECIFIED = 0;
+
+  // 사용자 관련 에러 (1000번대)
+  USER_NOT_FOUND = 1001;
+  INVALID_USER_PROFILE = 1002;
+  DUPLICATE_EMAIL = 1003;
+
+  // 상품 관련 에러 (2000번대)
+  PRODUCT_NOT_FOUND = 2001;
+  INSUFFICIENT_STOCK = 2002;
+}
