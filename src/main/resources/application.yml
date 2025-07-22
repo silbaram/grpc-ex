@@ -2,6 +2,39 @@ spring:
   application:
     name: grpc-login
 
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    driver-class-name: org.h2.Driver
+    jdbcUrl: jdbc:h2:mem:order
+    username: sa
+    password: sa
+
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 4000
+        order_inserts: true
+        order_updates: true
+      id:
+        new_generator_mappings: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      schema-locations: classpath:local-database/schema.sql
+
 jwt:
   secret: "aG9uZ2dpbGRvbmdkaWdpdGFsaW5ub3ZhdGlvbnNlY3JldGtleWhvbmdnaWxkb25nZGlnaXRhbGlubm92YXRpb25zZWNyZXRrZXk="
   # Access Token
