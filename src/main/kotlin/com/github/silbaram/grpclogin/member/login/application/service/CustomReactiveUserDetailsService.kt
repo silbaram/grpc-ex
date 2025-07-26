@@ -1,7 +1,5 @@
 package com.github.silbaram.grpclogin.member.login.application.service
 
-import com.github.silbaram.grpclogin.global.entity.GoodsEntity
-import com.github.silbaram.grpclogin.global.entity.util.columnName
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService
 import org.springframework.security.core.userdetails.User
 import org.springframework.security.core.userdetails.UserDetails
@@ -35,10 +33,6 @@ class CustomReactiveUserDetailsService : ReactiveUserDetailsService {
      * username을 기반으로 사용자 정보를 조회하는 메소드
      */
     override fun findByUsername(username: String?): Mono<UserDetails> {
-        val goodsNo = columnName(GoodsEntity::goodsNo)
-        println("GoodsEntity.goodsNo 컬럼명: $goodsNo")
-        println("GoodsEntity::goodsNo 컬럼명: ${GoodsEntity::goodsNo.name}")
-
         if (username == null) {
             return Mono.empty()
         }

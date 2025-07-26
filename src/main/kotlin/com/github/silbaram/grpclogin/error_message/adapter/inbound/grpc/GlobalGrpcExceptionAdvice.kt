@@ -1,14 +1,19 @@
-package com.github.silbaram.grpclogin.global.exception
+package com.github.silbaram.grpclogin.error_message.adapter.inbound.grpc
 
+import com.github.silbaram.grpclogin.error_message.port.inbound.ErrorMessageProvider
+import com.github.silbaram.grpclogin.global.exception.GrpcBusinessException
 import io.grpc.Metadata
 import io.grpc.Status
 import io.grpc.StatusRuntimeException
+import kotlinx.coroutines.runBlocking
 import net.devh.boot.grpc.server.advice.GrpcAdvice
 import net.devh.boot.grpc.server.advice.GrpcExceptionHandler
 import org.slf4j.LoggerFactory
 
 @GrpcAdvice
-class GlobalGrpcExceptionAdvice {
+class GlobalGrpcExceptionAdvice(
+    private val errorMessageProvider: ErrorMessageProvider
+) {
     companion object {
         private val ERROR_CODE_KEY: Metadata.Key<String> =
             Metadata.Key.of("error-code", Metadata.ASCII_STRING_MARSHALLER)
@@ -17,10 +22,14 @@ class GlobalGrpcExceptionAdvice {
 
     @GrpcExceptionHandler(GrpcBusinessException::class)
     fun handleBusinessException(ex: GrpcBusinessException): StatusRuntimeException {
+        val message =
+            runBlocking {
+                errorMessageProvider.getMessage("E401", "ko")
+            }
         val metadata = Metadata()
         metadata.put(ERROR_CODE_KEY, ex.errorCode.name)
-        log.error("gRPC Business Exception: ${ex.errorCode} - ${ex.message}")
-        return ex.status.withDescription(ex.message).asRuntimeException(metadata)
+        log.error("gRPC Business Exception: ${ex.errorCode} - $message")
+        return ex.status.withDescription(message).asRuntimeException(metadata)
     }
 
     @GrpcExceptionHandler(Exception::class)

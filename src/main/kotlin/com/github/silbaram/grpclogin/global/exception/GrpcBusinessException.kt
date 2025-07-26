@@ -5,6 +5,5 @@ import io.grpc.Status
 
 class GrpcBusinessException(
     val errorCode: ErrorCode,
-    override val message: String,
     val status: Status
-) : RuntimeException(message)
+) : RuntimeException()

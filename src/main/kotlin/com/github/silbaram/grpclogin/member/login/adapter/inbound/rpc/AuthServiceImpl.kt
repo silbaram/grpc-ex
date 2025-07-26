@@ -43,17 +43,9 @@ class AuthServiceImpl(
                 .setRefreshToken(refreshToken)
                 .build()
         } catch (e: AuthenticationException) {
-            throw GrpcBusinessException(
-                ErrorCode.USER_NOT_FOUND, // 필요에 따라 적절한 ErrorCode로 교체
-                "인증에 실패했습니다: ${e.message}",
-                Status.UNAUTHENTICATED
-            )
+            throw GrpcBusinessException(ErrorCode.USER_NOT_FOUND, Status.UNAUTHENTICATED)
         } catch (e: Exception) {
-            throw GrpcBusinessException(
-                ErrorCode.ERROR_CODE_UNSPECIFIED,
-                "예상치 못한 오류가 발생했습니다: ${e.message}",
-                Status.INTERNAL
-            )
+            throw GrpcBusinessException(ErrorCode.ERROR_CODE_UNSPECIFIED, Status.INTERNAL)
         }
     }
 
@@ -61,7 +53,6 @@ class AuthServiceImpl(
         if (username.isNullOrBlank() || password.isNullOrBlank()) {
             throw GrpcBusinessException(
                 ErrorCode.INVALID_USER_PROFILE,
-                "username과 password는 필수입니다.",
                 Status.INVALID_ARGUMENT
             )
         }

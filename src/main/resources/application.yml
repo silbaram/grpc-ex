@@ -34,6 +34,11 @@ spring:
   sql:
     init:
       schema-locations: classpath:local-database/schema.sql
+      data-locations: classpath:local-database/data.sql
+
+  cache:
+    cache-names:
+      - errorMessages
 
 jwt:
   secret: "aG9uZ2dpbGRvbmdkaWdpdGFsaW5ub3ZhdGlvbnNlY3JldGtleWhvbmdnaWxkb25nZGlnaXRhbGlubm92YXRpb25zZWNyZXRrZXk="
